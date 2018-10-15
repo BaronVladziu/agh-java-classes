@@ -12,7 +12,6 @@ public class DeanerySystem {
         System.out.println(term1.endTerm(term2));     //Ma się wypisać: "9:45 [30]"
         System.out.println(term1.endTerm());          //Ma się wypisać: "11:15 [90]"
 
-
     }
 
 }

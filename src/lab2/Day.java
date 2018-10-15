@@ -23,7 +23,7 @@ public enum Day {
         }
     }
 
-    Day nextDay() {
+    public Day nextDay() {
         switch (this) {
             case MON: return TUE;
             case TUE: return WEN;
@@ -36,7 +36,7 @@ public enum Day {
         }
     }
 
-    Day prevDay() {
+    public Day prevDay() {
         switch (this) {
             case MON: return SUN;
             case TUE: return MON;

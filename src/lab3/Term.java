@@ -24,11 +24,16 @@ public class Term {
     }
 
     public String toString() {
-        return Integer.toString(hour) + ":" + Integer.toString(minute) + " [" + Integer.toString(duration) + "]";
+        Term endTerm = this.endTerm();
+        return this.day + " " + hour + ":" + String.format("%02d", minute) + "-" + endTerm.hour + ":" + endTerm.minute;
     }
 
     int getStartInMinutes() {
         return this.hour * 60 + this.minute;
+    }
+
+    int getEndInMinutes() {
+        return this.hour * 60 + this.minute + this.duration;
     }
 
     boolean earlierThan(Term termin) {
@@ -44,15 +49,29 @@ public class Term {
     }
 
     Term endTerm(Term termin) {
-        Term resultTerm = new Term(this.hour, this.minute);
+        Term resultTerm = new Term(this.hour, this.minute, this.day);
         resultTerm.duration = termin.getStartInMinutes() - this.getStartInMinutes();
         return resultTerm;
     }
 
     Term endTerm() {
-        Term resultTerm = new Term(this.getStartInMinutes() + this.duration);
+        Term resultTerm = new Term(this.getStartInMinutes() + this.duration, this.day);
         resultTerm.duration = this.duration;
         return resultTerm;
+    }
+
+    Term startTerm() {
+        Term resultTerm = new Term(this.getStartInMinutes() - this.duration, this.day);
+        resultTerm.duration = this.duration;
+        return resultTerm;
+    }
+
+    void earlierDay() {
+        this.day = this.day.nextDay();
+    }
+
+    void laterDay() {
+        this.day = this.day.prevDay();
     }
 
 }
