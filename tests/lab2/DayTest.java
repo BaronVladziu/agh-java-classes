@@ -43,4 +43,5 @@ class DayTest {
         this.day = this.day.prevDay();
         assertEquals(this.day, Day.MON);
     }
+
 }

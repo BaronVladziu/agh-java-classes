@@ -1,5 +1,6 @@
 package lab3;
 
+import lab2.Action;
 import lab2.Day;
 
 public class Lesson {
@@ -76,6 +77,29 @@ public class Lesson {
         if (this.full_time && this.term.day == Day.FRI && this.term.getStartInMinutes() + this.term.duration > 17*60) return false;
         this.term = this.term.endTerm();
         return true;
+    }
+
+    void applyActions(Action[] actions) {
+        for (Action a : actions) {
+            switch (a) {
+                case DAY_LATER: {
+                    this.laterDay();
+                    break;
+                }
+                case TIME_LATER: {
+                    this.laterTime();
+                    break;
+                }
+                case DAY_EARLIER: {
+                    this.earlierDay();
+                    break;
+                }
+                case TIME_EARLIER: {
+                    this.earlierTime();
+                    break;
+                }
+            }
+        }
     }
 
 }

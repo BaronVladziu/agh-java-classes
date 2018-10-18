@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ActionsParserTest {
 
-    ActionsParser parser = new ActionsParser();
+    private ActionsParser parser = new ActionsParser();
 
     @Test
     void parse() {
@@ -15,9 +15,9 @@ class ActionsParserTest {
         Action[] actions = parser.parse(tab);
         assertEquals(4, actions.length);
         assertEquals(Action.TIME_LATER, actions[0]);
-        assertEquals(Action.DAY_EARLIER, actions[0]);
-        assertEquals(Action.TIME_EARLIER, actions[0]);
-        assertEquals(Action.DAY_LATER, actions[0]);
+        assertEquals(Action.DAY_EARLIER, actions[1]);
+        assertEquals(Action.TIME_EARLIER, actions[2]);
+        assertEquals(Action.DAY_LATER, actions[3]);
     }
 
 }

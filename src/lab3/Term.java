@@ -25,7 +25,7 @@ public class Term {
 
     public String toString() {
         Term endTerm = this.endTerm();
-        return this.day + " " + hour + ":" + String.format("%02d", minute) + "-" + endTerm.hour + ":" + endTerm.minute;
+        return this.day + " " + hour + ":" + String.format("%02d", minute) + "-" + endTerm.hour + ":" + String.format("%02d", endTerm.minute);
     }
 
     int getStartInMinutes() {
