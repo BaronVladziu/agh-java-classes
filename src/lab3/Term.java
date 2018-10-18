@@ -67,11 +67,11 @@ public class Term {
     }
 
     void earlierDay() {
-        this.day = this.day.nextDay();
+        this.day = this.day.prevDay();
     }
 
     void laterDay() {
-        this.day = this.day.prevDay();
+        this.day = this.day.nextDay();
     }
 
 }

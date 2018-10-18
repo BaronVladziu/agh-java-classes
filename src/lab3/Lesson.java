@@ -18,10 +18,24 @@ public class Lesson {
         this.full_time = true;
     }
 
+    Lesson(Term term, String name, String teacherName, int year, boolean full_time) {
+        this.term = term;
+        this.name = name;
+        this.teacherName = teacherName;
+        this.year = year;
+        this.full_time = full_time;
+    }
+
     public Lesson clone() {
-        Lesson result = new Lesson(this.term, this.name, this.teacherName, this.year);
-        result.full_time = this.full_time;
-        return result;
+        return new Lesson(this.term, this.name, this.teacherName, this.year, this.full_time);
+    }
+
+    public boolean equals(Lesson lesson) {
+        return (this.term.equals(lesson.term) &&
+                this.name.equals(lesson.name) &&
+                this.teacherName.equals(lesson.teacherName) &&
+                this.year == lesson.year &&
+                this.full_time == lesson.full_time);
     }
 
     public String toString() {
