@@ -1,6 +1,7 @@
 package lab3;
 
 import lab2.Day;
+import lab2.Term;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

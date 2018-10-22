@@ -2,52 +2,115 @@ package lab2;
 
 public class Term {
 
-    int hour; //godzina rozpoczęcia zajęć
-    int minute; //minuta rozpoczęcia zajęć
-    int duration; //czas trwania zajęć (w minutach)
+    private int hour; //godzina rozpoczęcia zajęć
+    private int minute; //minuta rozpoczęcia zajęć
+    private int duration; //czas trwania zajęć (w minutach)
+    private Day day;
 
-    Term(int hour, int minute) {
-        this.hour = hour;
-        this.minute = minute;
-        this.duration = 90;
+    public Term(int hour, int minute, Day day) {
+        this.setHour(hour);
+        this.setMinute(minute);
+        this.setDuration(90);
+        this.setDay(day);
     }
 
-    Term(int startInMinutes) {
-        this.hour = startInMinutes / 60;
-        this.minute = startInMinutes % 60;
-        this.duration = 90;
+    public Term(int startInMinutes, Day day) {
+        this.setHour(startInMinutes / 60);
+        this.setMinute(startInMinutes % 60);
+        this.setDuration(90);
+        this.setDay(day);
     }
 
     public String toString() {
-        return Integer.toString(hour) + ":" + Integer.toString(minute) + " [" + Integer.toString(duration) + "]";
+        Term endTerm = this.endTerm();
+        return this.getDay() + " " + getHour() + ":" + String.format("%02d", getMinute()) + "-" + endTerm.getHour() + ":" + String.format("%02d", endTerm.getMinute());
     }
 
-    int getStartInMinutes() {
-        return this.hour * 60 + this.minute;
+    public int getStartInMinutes() {
+        return this.getHour() * 60 + this.getMinute();
     }
 
-    boolean earlierThan(Term termin) {
+    public int getEndInMinutes() {
+        return this.getHour() * 60 + this.getMinute() + this.getDuration();
+    }
+
+    public boolean earlierThan(Term termin) {
         return (this.getStartInMinutes() < termin.getStartInMinutes());
     }
 
-    boolean laterThan(Term termin) {
+    public boolean laterThan(Term termin) {
         return (this.getStartInMinutes() > termin.getStartInMinutes());
     }
 
-    boolean equals(Term termin) {
-        return (this.getStartInMinutes() == termin.getStartInMinutes() && this.duration == termin.duration);
+    public boolean equals(Term termin) {
+        return (this.getStartInMinutes() == termin.getStartInMinutes() && this.getDuration() == termin.getDuration());
     }
 
-    Term endTerm(Term termin) {
-        Term resultTerm = new Term(this.hour, this.minute);
-        resultTerm.duration = termin.getStartInMinutes() - this.getStartInMinutes();
+    public Term endTerm(Term termin) {
+        Term resultTerm = new Term(this.getHour(), this.getMinute(), this.getDay());
+        resultTerm.setDuration(termin.getStartInMinutes() - this.getStartInMinutes());
         return resultTerm;
     }
 
-    Term endTerm() {
-        Term resultTerm = new Term(this.getStartInMinutes() + this.duration);
-        resultTerm.duration = this.duration;
+    public Term endTerm() {
+        Term resultTerm = new Term(this.getStartInMinutes() + this.getDuration(), this.getDay());
+        resultTerm.setDuration(this.getDuration());
         return resultTerm;
     }
 
+    public Term startTerm() {
+        Term resultTerm = new Term(this.getStartInMinutes() - this.getDuration(), this.getDay());
+        resultTerm.setDuration(this.getDuration());
+        return resultTerm;
+    }
+
+    public Term earlierDay() {
+        Term result = this.clone();
+        result.getDay().prevDay();
+        return result;
+    }
+
+    public Term laterDay() {
+        Term result = this.clone();
+        result.getDay().nextDay();
+        return result;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Day getDay() {
+        return day;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    public Term clone() {
+        Term result = new Term(this.hour, this.minute, this.day);
+        result.duration = this.duration;
+        return result;
+    }
 }

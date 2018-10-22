@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TermTest {
 
-    private Term term1 = new Term(9,45);
-    private Term term2 = new Term(10,15);
+    private Term term1 = new Term(9,45, Day.MON);
+    private Term term2 = new Term(10,15, Day.MON);
 
     @Test
     void toStringTest() {
-        assertEquals("9:45 [90]", term1.toString());
-        assertEquals("10:15 [90]", term2.toString());
+        assertEquals("Poniedziałek 9:45-11:15", term1.toString());
+        assertEquals("Poniedziałek 10:15-11:45", term2.toString());
     }
 
     @Test
@@ -38,16 +38,16 @@ class TermTest {
     @Test
     void endTerm() {
         Term tempTerm = term1.endTerm(term2);
-        assertEquals(9, tempTerm.hour);
-        assertEquals(45, tempTerm.minute);
-        assertEquals(30, tempTerm.duration);
+        assertEquals(9, tempTerm.getHour());
+        assertEquals(45, tempTerm.getMinute());
+        assertEquals(30, tempTerm.getDuration());
     }
 
     @Test
     void endTerm1() {
         Term tempTerm = term1.endTerm();
-        assertEquals(11, tempTerm.hour);
-        assertEquals(15, tempTerm.minute);
-        assertEquals(90, tempTerm.duration);
+        assertEquals(11, tempTerm.getHour());
+        assertEquals(15, tempTerm.getMinute());
+        assertEquals(90, tempTerm.getDuration());
     }
 }

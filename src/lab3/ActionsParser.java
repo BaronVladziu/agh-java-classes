@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ActionsParser {
 
-    Action[] parse(String[] tablica) {
+    public Action[] parse(String[] tablica) {
         ArrayList<Action> aVec = new ArrayList<>();
         for (int i = 0; i < tablica.length; i++) {
             switch (tablica[i]) {
