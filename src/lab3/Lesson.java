@@ -38,8 +38,17 @@ public class Lesson {
         this.year = year;
     }
 
+    public Lesson(ITimetable timetable, Term term, String name, String teacherName, int year, boolean full_time) {
+        this.timetable = timetable;
+        this.term = term;
+        this.name = name;
+        this.teacherName = teacherName;
+        this.year = year;
+        this.full_time = full_time;
+    }
+
     public Lesson clone() {
-        return new Lesson(this.getTerm(), this.getName(), this.getTeacherName(), this.getYear(), this.isFull_time());
+        return new Lesson(this.timetable, this.getTerm(), this.getName(), this.getTeacherName(), this.getYear(), this.isFull_time());
     }
 
     public boolean equals(Lesson lesson) {
@@ -62,7 +71,7 @@ public class Lesson {
 //            if (this.getTerm().getDay() == Day.SAT && this.getTerm().getStartInMinutes() - this.getTerm().getDuration() < 17*60) return false;
 //        }
         Term cand = this.getTerm().earlierDay();
-        if (this.timetable.canBeTransferredTo(cand, this.full_time)) {
+        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
             this.setTerm(cand);
             return true;
         } else {
@@ -78,7 +87,7 @@ public class Lesson {
 //            if (this.getTerm().getDay() == Day.SUN) return false;
 //        }
         Term cand = this.getTerm().laterDay();
-        if (this.timetable.canBeTransferredTo(cand, this.full_time)) {
+        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
             this.setTerm(cand);
             return true;
         } else {
@@ -90,7 +99,7 @@ public class Lesson {
 //        if (this.getTerm().getStartInMinutes() - this.getTerm().getDuration() < 8*60) return false;
 //        if (!this.isFull_time() && this.getTerm().getDay() == Day.FRI && this.getTerm().getStartInMinutes() - this.getTerm().getDuration() < 17*60) return false;
         Term cand = this.getTerm().startTerm();
-        if (this.timetable.canBeTransferredTo(cand, this.full_time)) {
+        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
             this.setTerm(cand);
             return true;
         } else {
@@ -102,7 +111,7 @@ public class Lesson {
 //        if (this.getTerm().getEndInMinutes() + this.getTerm().getDuration() > 20*60) return false;
 //        if (this.isFull_time() && this.getTerm().getDay() == Day.FRI && this.getTerm().getStartInMinutes() + this.getTerm().getDuration() > 17*60) return false;
         Term cand = this.getTerm().endTerm();
-        if (this.timetable.canBeTransferredTo(cand, this.full_time)) {
+        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
             this.setTerm(cand);
             return true;
         } else {

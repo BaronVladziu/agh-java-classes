@@ -66,13 +66,13 @@ public class Term {
 
     public Term earlierDay() {
         Term result = this.clone();
-        result.getDay().prevDay();
+        result.setDay(result.getDay().prevDay());
         return result;
     }
 
     public Term laterDay() {
         Term result = this.clone();
-        result.getDay().nextDay();
+        result.setDay(result.getDay().nextDay());
         return result;
     }
 

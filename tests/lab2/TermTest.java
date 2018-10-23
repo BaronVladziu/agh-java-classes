@@ -50,4 +50,16 @@ class TermTest {
         assertEquals(15, tempTerm.getMinute());
         assertEquals(90, tempTerm.getDuration());
     }
+
+    @Test
+    void earlierDay() {
+        Term tempTerm = term1.earlierDay();
+        assertTrue(new Term(9, 45, Day.SUN).equals(tempTerm));
+    }
+
+    @Test
+    void laterDay() {
+        Term tempTerm = term1.laterDay();
+        assertTrue(new Term(9, 45, Day.TUE).equals(tempTerm));
+    }
 }

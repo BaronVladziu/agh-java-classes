@@ -18,6 +18,7 @@ public class DeanerySystem {
         timetable.put(l1);
         timetable.put(l2);
         timetable.perform(actions);
+        System.out.println(timetable);
     }
 
 }
