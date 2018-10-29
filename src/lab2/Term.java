@@ -58,8 +58,20 @@ public class Term {
         return resultTerm;
     }
 
+    public Term endTerm(int additionalShiftInMinutes) {
+        Term resultTerm = new Term(this.getStartInMinutes() + additionalShiftInMinutes + this.getDuration(), this.getDay());
+        resultTerm.setDuration(this.getDuration());
+        return resultTerm;
+    }
+
     public Term startTerm() {
         Term resultTerm = new Term(this.getStartInMinutes() - this.getDuration(), this.getDay());
+        resultTerm.setDuration(this.getDuration());
+        return resultTerm;
+    }
+
+    public Term startTerm(int additionalShiftInMinutes) {
+        Term resultTerm = new Term(this.getStartInMinutes() - additionalShiftInMinutes - this.getDuration(), this.getDay());
         resultTerm.setDuration(this.getDuration());
         return resultTerm;
     }
@@ -113,4 +125,10 @@ public class Term {
         result.duration = this.duration;
         return result;
     }
+
+    public boolean ifHoursCollide(Term term) {
+        return !(this.getStartInMinutes() >= term.getEndInMinutes() ||
+                this.getEndInMinutes() <= term.getStartInMinutes());
+    }
+
 }
