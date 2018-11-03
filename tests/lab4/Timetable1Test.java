@@ -1,10 +1,12 @@
 package lab4;
 
+import lab2.Action;
 import lab2.Day;
 import lab2.Term;
 import lab3.Lesson;
 import org.junit.jupiter.api.Test;
 
+import static lab2.Action.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Timetable1Test {
@@ -67,6 +69,28 @@ class Timetable1Test {
     }
 
     @Test
+    void perform() {
+        this.timetable.put(lesson1);
+        this.timetable.put(lesson2);
+        this.timetable.put(lesson3);
+        this.timetable.put(lesson4);
+
+        Action[] actions = {TIME_LATER, DAY_EARLIER, TIME_EARLIER, DAY_LATER};
+        this.timetable.perform(actions);
+        assertEquals(new Term(10,45, Day.MON).toString(), lesson1.getTerm().toString());
+        assertEquals(new Term(15,30, Day.THU).toString(), lesson2.getTerm().toString());
+        assertEquals(new Term(17,0, Day.FRI).toString(), lesson3.getTerm().toString());
+        assertEquals(new Term(18,25, Day.SUN).toString(), lesson4.getTerm().toString());
+
+        Action[] actions2 = {TIME_LATER, DAY_EARLIER, DAY_LATER, TIME_EARLIER};
+        this.timetable.perform(actions2);
+        assertEquals(new Term(12,15, Day.MON).toString(), lesson1.getTerm().toString());
+        assertEquals(new Term(15,30, Day.WEN).toString(), lesson2.getTerm().toString());
+        assertEquals(new Term(17,0, Day.SAT).toString(), lesson3.getTerm().toString());
+        assertEquals(new Term(16,55, Day.SUN).toString(), lesson4.getTerm().toString());
+    }
+
+    @Test
     void get() {
         this.timetable.put(lesson1);
         this.timetable.put(lesson2);
@@ -80,19 +104,17 @@ class Timetable1Test {
 
     @Test
     void repeatedChar() {
-        Timetable1 tt = new Timetable1();
-        assertEquals("ccccc", tt.repeatedChar('c', 5));
-        assertEquals("sss", tt.repeatedChar('s', 3));
-        assertEquals("88", tt.repeatedChar('8', 2));
+        assertEquals("ccccc", this.timetable.repeatedChar('c', 5));
+        assertEquals("sss", this.timetable.repeatedChar('s', 3));
+        assertEquals("88", this.timetable.repeatedChar('8', 2));
     }
 
     @Test
     void fitInto() {
-        Timetable1 tt = new Timetable1();
         String s = "abc";
-        assertEquals(15, tt.fitInto(s, 15).length());
-        assertEquals(3, tt.fitInto(s, 3).length());
-        assertEquals(2, tt.fitInto(s, 2).length());
+        assertEquals(15, this.timetable.fitInto(s, 15).length());
+        assertEquals(3, this.timetable.fitInto(s, 3).length());
+        assertEquals(2, this.timetable.fitInto(s, 2).length());
     }
 
 }

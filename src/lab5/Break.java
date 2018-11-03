@@ -1,12 +1,10 @@
 package lab5;
 
-import lab2.Term;
-
 public class Break {
 
-    private Term term;
+    private BasicTerm term;
 
-    public Break(Term term) {
+    public Break(BasicTerm term) {
         this.term = term.clone();
     }
 
@@ -14,7 +12,7 @@ public class Break {
         return "Przerwa";
     }
 
-    public Term getTerm() {
+    public BasicTerm getTerm() {
         return term.clone();
     }
 

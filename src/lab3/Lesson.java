@@ -1,7 +1,6 @@
 package lab3;
 
 import lab2.Action;
-import lab2.Day;
 import lab2.Term;
 import lab4.ITimetable;
 

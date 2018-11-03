@@ -1,79 +1,58 @@
 package lab2;
 
-public class Term {
+import lab5.BasicTerm;
 
-    private int hour; //godzina rozpoczęcia zajęć
-    private int minute; //minuta rozpoczęcia zajęć
-    private int duration; //czas trwania zajęć (w minutach)
+public class Term extends BasicTerm {
+
     private Day day;
 
     public Term(int hour, int minute, Day day) {
-        this.setHour(hour);
-        this.setMinute(minute);
-        this.setDuration(90);
+        super(hour, minute);
+        this.setDay(day);
+    }
+
+    public Term(int hour, int minute, int duration, Day day) {
+        super(hour, minute, duration);
         this.setDay(day);
     }
 
     public Term(int startInMinutes, Day day) {
-        this.setHour(startInMinutes / 60);
-        this.setMinute(startInMinutes % 60);
-        this.setDuration(90);
+        super(startInMinutes);
         this.setDay(day);
     }
 
     public String toString() {
         Term endTerm = this.endTerm();
-        return this.getDay() + " " + getHour() + ":" + String.format("%02d", getMinute()) + "-" + endTerm.getHour() + ":" + String.format("%02d", endTerm.getMinute());
-    }
-
-    public int getStartInMinutes() {
-        return this.getHour() * 60 + this.getMinute();
-    }
-
-    public int getEndInMinutes() {
-        return this.getHour() * 60 + this.getMinute() + this.getDuration();
-    }
-
-    public boolean earlierThan(Term termin) {
-        return (this.getStartInMinutes() < termin.getStartInMinutes());
-    }
-
-    public boolean laterThan(Term termin) {
-        return (this.getStartInMinutes() > termin.getStartInMinutes());
+        return this.getDay() + " " + super.toString();
     }
 
     public boolean equals(Term termin) {
-        return (this.getStartInMinutes() == termin.getStartInMinutes() && this.getDuration() == termin.getDuration());
+        return (super.equals(termin) && this.day == termin.day);
     }
 
     public Term endTerm(Term termin) {
-        Term resultTerm = new Term(this.getHour(), this.getMinute(), this.getDay());
-        resultTerm.setDuration(termin.getStartInMinutes() - this.getStartInMinutes());
-        return resultTerm;
+        BasicTerm resultTerm = super.endTerm(termin);
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
     }
 
     public Term endTerm() {
-        Term resultTerm = new Term(this.getStartInMinutes() + this.getDuration(), this.getDay());
-        resultTerm.setDuration(this.getDuration());
-        return resultTerm;
+        BasicTerm resultTerm = super.endTerm();
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
     }
 
     public Term endTerm(int additionalShiftInMinutes) {
-        Term resultTerm = new Term(this.getStartInMinutes() + additionalShiftInMinutes + this.getDuration(), this.getDay());
-        resultTerm.setDuration(this.getDuration());
-        return resultTerm;
+        BasicTerm resultTerm = super.endTerm(additionalShiftInMinutes);
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
     }
 
     public Term startTerm() {
-        Term resultTerm = new Term(this.getStartInMinutes() - this.getDuration(), this.getDay());
-        resultTerm.setDuration(this.getDuration());
-        return resultTerm;
+        BasicTerm resultTerm = super.startTerm();
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
     }
 
     public Term startTerm(int additionalShiftInMinutes) {
-        Term resultTerm = new Term(this.getStartInMinutes() - additionalShiftInMinutes - this.getDuration(), this.getDay());
-        resultTerm.setDuration(this.getDuration());
-        return resultTerm;
+        BasicTerm resultTerm = super.startTerm(additionalShiftInMinutes);
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
     }
 
     public Term earlierDay() {
@@ -88,30 +67,6 @@ public class Term {
         return result;
     }
 
-    public int getHour() {
-        return hour;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    public int getMinute() {
-        return minute;
-    }
-
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
     public Day getDay() {
         return day;
     }
@@ -121,14 +76,7 @@ public class Term {
     }
 
     public Term clone() {
-        Term result = new Term(this.hour, this.minute, this.day);
-        result.duration = this.duration;
-        return result;
-    }
-
-    public boolean ifHoursCollide(Term term) {
-        return !(this.getStartInMinutes() >= term.getEndInMinutes() ||
-                this.getEndInMinutes() <= term.getStartInMinutes());
+        return new Term(this.hour, this.minute, this.duration, this.day);
     }
 
 }
