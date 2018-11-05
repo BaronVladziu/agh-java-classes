@@ -114,4 +114,8 @@ public class BasicTerm {
                 this.getEndInMinutes() <= term.getStartInMinutes());
     }
 
+    @Override
+    public int hashCode() {
+        return (60*hour + minute)*1000 + duration;
+    }
 }

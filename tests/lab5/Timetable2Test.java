@@ -101,20 +101,30 @@ class Timetable2Test {
         breaks[4] = new Break(break4);
         breaks[5] = new Break(break5);
 
-        assertEquals(0, this.timetable.getNumberOfLessons());
-        assertTrue(this.timetable.put(lesson1));
-        assertEquals(1, this.timetable.getNumberOfLessons());
-        assertTrue(this.timetable.put(lesson2));
-        assertEquals(2, this.timetable.getNumberOfLessons());
-        assertTrue(this.timetable.put(lesson3));
-        assertEquals(3, this.timetable.getNumberOfLessons());
-        assertTrue(this.timetable.put(lesson4));
+        try {
+            assertEquals(0, this.timetable.getNumberOfLessons());
+            assertTrue(this.timetable.put(lesson1));
+            assertEquals(1, this.timetable.getNumberOfLessons());
+            assertTrue(this.timetable.put(lesson2));
+            assertEquals(2, this.timetable.getNumberOfLessons());
+            assertTrue(this.timetable.put(lesson3));
+            assertEquals(3, this.timetable.getNumberOfLessons());
+            assertTrue(this.timetable.put(lesson4));
+        } catch (IllegalArgumentException e) {}
         assertEquals(4, this.timetable.getNumberOfLessons());
-        assertFalse(this.timetable.put(new Lesson(this.timetable, new Term(9,35, Day.MON),
-                "Programowanie  w języku Ruby","Stanisław Polak",2, true)));
+        try {
+            assertFalse(this.timetable.put(new Lesson(this.timetable, new Term(9, 35, Day.MON),
+                    "Programowanie  w języku Ruby", "Stanisław Polak", 2, true)));
+        } catch (IllegalArgumentException e) {
+            assertEquals("Unable to put lesson to timetable", e.getMessage());
+        }
         assertEquals(4, this.timetable.getNumberOfLessons());
-        assertFalse(this.timetable.put(new Lesson(this.timetable, new Term(9,15, Day.TUE),
-                "Programowanie  w języku Ruby","Stanisław Polak",2, true)));
+        try {
+            assertFalse(this.timetable.put(new Lesson(this.timetable, new Term(9, 15, Day.TUE),
+                    "Programowanie  w języku Ruby", "Stanisław Polak", 2, true)));
+        } catch (IllegalArgumentException e) {
+            assertEquals("Unable to put lesson to timetable", e.getMessage());
+        }
         assertEquals(4, this.timetable.getNumberOfLessons());
     }
 

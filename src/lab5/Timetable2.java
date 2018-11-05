@@ -4,9 +4,8 @@ import lab2.Action;
 import lab2.Day;
 import lab2.Term;
 import lab3.Lesson;
-import lab4.ITimetable;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Timetable2 extends AbstractTimetable {
 
@@ -30,9 +29,11 @@ public class Timetable2 extends AbstractTimetable {
     }
 
     public void perform(Action[] actions) {
+        List<Lesson> lesssonList = lessons.values();
         int lID = 0;
         for (Action a : actions) {
             Lesson act = lessons.get(lID);
+            lessons.remove(act.getTerm().hashCode());
             if (SKIP_BREAKS) {
                 int upShift = 0;
                 int downShift = 0;
@@ -46,9 +47,11 @@ public class Timetable2 extends AbstractTimetable {
                     }
                 }
                 act.applyAction(a, upShift, downShift);
+
             } else {
                 act.applyAction(a);
             }
+            lessons.put(act.getTerm().hashCode(), act);
             lID++;
             if (lID > lessons.size()) {
                 lID = 0;

@@ -17,7 +17,10 @@ public class Timetable1 extends AbstractTimetable {
     public void perform(Action[] actions) {
         int lID = 0;
         for (Action a : actions) {
-            lessons.get(lID).applyAction(a);
+            Lesson l = lessons.get(lID);
+            lessons.remove(l.getTerm().hashCode());
+            l.applyAction(a);
+            lessons.put(l.getTerm().hashCode(), l);
             lID++;
             if (lID > lessons.size()) {
                 lID = 0;

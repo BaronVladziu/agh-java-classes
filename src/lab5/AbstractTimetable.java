@@ -6,22 +6,14 @@ import lab3.Lesson;
 import lab4.ITimetable;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public abstract class AbstractTimetable implements ITimetable {
 
-    protected ArrayList<Lesson> lessons = new ArrayList<>();
+    protected LinkedHashMap<Integer, Lesson> lessons = new LinkedHashMap<>();
 
     public boolean busy(Term term) {
-        for (Lesson l : lessons) {
-            Term t = l.getTerm();
-            if (term.getDay() == l.getTerm().getDay()) {
-                if (term.getStartInMinutes() >= t.getStartInMinutes() &&
-                        term.getStartInMinutes() < t.getEndInMinutes()) return true;
-                if (term.getEndInMinutes() > t.getStartInMinutes() &&
-                        term.getEndInMinutes() <= t.getEndInMinutes()) return true;
-            }
-        }
-        return false;
+        return (lessons.containsKey(term.hashCode()));
     }
 
     public boolean canBeTransferredTo(Term term, boolean full_time) {
@@ -37,25 +29,16 @@ public abstract class AbstractTimetable implements ITimetable {
         return !this.busy(term);
     }
 
-    public boolean put(Lesson lesson) {
+    public boolean put(Lesson lesson) throws IllegalArgumentException {
         if (this.canBeTransferredTo(lesson.getTerm(), lesson.isFull_time())) {
-            lessons.add(lesson);
+            lessons.put(lesson.getTerm().hashCode(), lesson);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("Unable to put lesson to timetable");
     }
 
     public Object get(Term term) {
-        for (Lesson l : lessons) {
-            Term t = l.getTerm();
-            if (term.getDay() == t.getDay()) {
-                if ((term.getStartInMinutes() >= t.getStartInMinutes() &&
-                        term.getStartInMinutes() < t.getEndInMinutes()) ||
-                        (term.getEndInMinutes() > t.getStartInMinutes() &&
-                                term.getEndInMinutes() <= t.getEndInMinutes())) return l;
-            }
-        }
-        return null;
+        return lessons.get(term.hashCode());
     }
 
     public String toString() {
@@ -86,7 +69,7 @@ public abstract class AbstractTimetable implements ITimetable {
                     String.format("%02d", 8 + j/4) + ':' + String.format("%02d", 15*(j%4));
         }
         //Lessons
-        for (Lesson l : lessons) {
+        for (Lesson l : lessons.values()) {
             int x = 2*(l.getTerm().getDay().ordinal()) + 2;
             int y = (l.getTerm().getStartInMinutes() - 8*60)/15 + 2;
             int yEnd = (l.getTerm().getEndInMinutes() - 8*60)/15 + 1;

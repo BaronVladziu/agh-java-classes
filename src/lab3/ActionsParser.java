@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ActionsParser {
 
-    public Action[] parse(String[] tablica) {
+    public Action[] parse(String[] tablica) throws IllegalArgumentException {
         ArrayList<Action> aVec = new ArrayList<>();
         for (int i = 0; i < tablica.length; i++) {
             switch (tablica[i]) {
@@ -25,6 +25,9 @@ public class ActionsParser {
                 case "t+": {
                     aVec.add(Action.TIME_LATER);
                     break;
+                }
+                default: {
+                    throw new IllegalArgumentException("Translation " + tablica[i] + " is incorrect");
                 }
             }
         }

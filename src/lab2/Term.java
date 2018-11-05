@@ -79,4 +79,8 @@ public class Term extends BasicTerm {
         return new Term(this.hour, this.minute, this.duration, this.day);
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode()*10 + day.ordinal();
+    }
 }

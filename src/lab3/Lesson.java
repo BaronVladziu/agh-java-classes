@@ -62,7 +62,7 @@ public class Lesson {
         return getName() + " (" + this.getTerm() + ")\n" + "rok: " + this.getYear() + ", stacjonarne: " + this.isFull_time() + "\nProwadzący: " + getTeacherName();
     }
 
-    public boolean earlierDay() {
+    public boolean earlierDay() { //TODO: Rzuć wyjątek
         Term cand = this.getTerm().earlierDay();
         if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
             this.setTerm(cand);
