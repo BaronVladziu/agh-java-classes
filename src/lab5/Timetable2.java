@@ -4,7 +4,9 @@ import lab2.Action;
 import lab2.Day;
 import lab2.Term;
 import lab3.Lesson;
+import lab6.ActionFailedException;
 
+import java.util.Collection;
 import java.util.List;
 
 public class Timetable2 extends AbstractTimetable {
@@ -29,10 +31,10 @@ public class Timetable2 extends AbstractTimetable {
     }
 
     public void perform(Action[] actions) {
-        List<Lesson> lesssonList = lessons.values();
+        Object[] lesssonList = lessons.values().toArray();
         int lID = 0;
         for (Action a : actions) {
-            Lesson act = lessons.get(lID);
+            Lesson act = (Lesson)lesssonList[lID];
             lessons.remove(act.getTerm().hashCode());
             if (SKIP_BREAKS) {
                 int upShift = 0;
@@ -46,10 +48,18 @@ public class Timetable2 extends AbstractTimetable {
                         if (downShift < actDur) downShift = actDur;
                     }
                 }
-                act.applyAction(a, upShift, downShift);
+                try {
+                    act.applyAction(a, upShift, downShift);
+                } catch (ActionFailedException ex) {
+                    System.out.println(ex.getMessage());
+                }
 
             } else {
-                act.applyAction(a);
+                try {
+                    act.applyAction(a);
+                } catch (ActionFailedException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
             lessons.put(act.getTerm().hashCode(), act);
             lID++;

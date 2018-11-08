@@ -29,12 +29,12 @@ class Timetable1Test {
         this.timetable.put(lesson4);
         assertFalse(this.timetable.canBeTransferredTo(new Term(7, 0, Day.TUE), true));
         assertFalse(this.timetable.canBeTransferredTo(new Term(19, 0, Day.TUE), true));
-        assertFalse(this.timetable.canBeTransferredTo(new Term(10, 0, Day.MON), true));
+        assertFalse(this.timetable.canBeTransferredTo(new Term(9, 15, Day.MON), true));
         assertTrue(this.timetable.canBeTransferredTo(new Term(9, 0, Day.TUE), true));
         assertTrue(this.timetable.canBeTransferredTo(new Term(11, 0, Day.MON), true));
         assertTrue(this.timetable.canBeTransferredTo(new Term(8, 0, Day.TUE), true));
         assertTrue(this.timetable.canBeTransferredTo(new Term(18, 30, Day.TUE), true));
-        assertFalse(this.timetable.canBeTransferredTo(new Term(17, 0, Day.SUN), false));
+        assertFalse(this.timetable.canBeTransferredTo(new Term(18, 25, Day.SUN), false));
         assertFalse(this.timetable.canBeTransferredTo(new Term(9, 0, Day.SUN), true));
         assertFalse(this.timetable.canBeTransferredTo(new Term(9, 0, Day.TUE), false));
     }
@@ -45,8 +45,8 @@ class Timetable1Test {
         this.timetable.put(lesson2);
         this.timetable.put(lesson3);
         this.timetable.put(lesson4);
-        assertTrue(this.timetable.busy(new Term(10, 0, Day.MON)));
-        assertTrue(this.timetable.busy(new Term(17, 0, Day.SUN)));
+        assertTrue(this.timetable.busy(new Term(9, 15, Day.MON)));
+        assertTrue(this.timetable.busy(new Term(18, 25, Day.SUN)));
         assertFalse(this.timetable.busy(new Term(14, 0, Day.FRI)));
         assertFalse(this.timetable.busy(new Term(18, 30, Day.FRI)));
         assertFalse(this.timetable.busy(new Term(9, 0, Day.TUE)));
@@ -103,8 +103,8 @@ class Timetable1Test {
         this.timetable.put(lesson3);
         this.timetable.put(lesson4);
         assertEquals(lesson1, this.timetable.get(new Term(9,15, Day.MON)));
-        assertEquals(lesson2, this.timetable.get(new Term(15,15, Day.FRI)));
-        assertEquals(lesson3, this.timetable.get(new Term(18,15, Day.FRI)));
+        assertEquals(lesson2, this.timetable.get(new Term(15,30, Day.FRI)));
+        assertEquals(lesson3, this.timetable.get(new Term(17,00, Day.FRI)));
         assertNull(this.timetable.get(new Term(11,15, Day.MON)));
     }
 
