@@ -3,6 +3,7 @@ package lab4;
 import lab2.Action;
 import lab2.Term;
 import lab3.Lesson;
+import lab6.TimetableAnswer;
 
 /**
  * Interface containing a set of operations to manage the timetable
@@ -45,12 +46,10 @@ public interface ITimetable {
      */
     boolean put(Lesson lesson);
 
-    /*************************************/
-    /**
-     * Transfer the lessons included in the timetable as described in the list of actions.
-     * N-th action should be sent the n-th lesson in the timetable.
-     */
-    void perform(Action[] actions);
+
+    TimetableAnswer canPerform(Action action, Lesson lesson);
+    void informAboutLessonChange(Term oldTerm, Lesson lesson);
+
 
     /*************************************/
     /**

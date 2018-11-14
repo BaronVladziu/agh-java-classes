@@ -3,7 +3,9 @@ package lab3;
 import lab2.Action;
 import lab2.Term;
 import lab4.ITimetable;
+import lab5.AbstractTimetable;
 import lab6.ActionFailedException;
+import lab6.TimetableAnswer;
 
 public class Lesson {
 
@@ -63,60 +65,6 @@ public class Lesson {
         return getName() + " (" + this.getTerm() + ")\n" + "rok: " + this.getYear() + ", stacjonarne: " + this.isFull_time() + "\nProwadzący: " + getTeacherName();
     }
 
-    public void earlierDay() throws ActionFailedException {
-        Term cand = this.getTerm().earlierDay();
-        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
-            this.setTerm(cand);
-        } else {
-            throw new ActionFailedException("Switching lesson to earlier day failed.");
-        }
-    }
-
-    public void laterDay() throws ActionFailedException {
-        Term cand = this.getTerm().laterDay();
-        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
-            this.setTerm(cand);
-        } else {
-            throw new ActionFailedException("Switching lesson to later day failed.");
-        }
-    }
-
-    public void earlierTime() throws ActionFailedException {
-        Term cand = this.getTerm().startTerm();
-        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
-            this.setTerm(cand);
-        } else {
-            throw new ActionFailedException("Switching lesson to earlier time failed.");
-        }
-    }
-
-    public void earlierTime(int shift) throws ActionFailedException {
-        Term cand = this.getTerm().startTerm(shift);
-        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
-            this.setTerm(cand);
-        } else {
-            throw new ActionFailedException("Switching lesson to earlier time failed.");
-        }
-    }
-
-    public void laterTime() throws ActionFailedException {
-        Term cand = this.getTerm().endTerm();
-        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
-            this.setTerm(cand);
-        } else {
-            throw new ActionFailedException("Switching lesson to later time failed.");
-        }
-    }
-
-    public void laterTime(int shift) throws ActionFailedException {
-        Term cand = this.getTerm().endTerm(shift);
-        if (this.timetable != null && this.timetable.canBeTransferredTo(cand, this.full_time)) {
-            this.setTerm(cand);
-        } else {
-            throw new ActionFailedException("Switching lesson to later time failed.");
-        }
-    }
-
     public void applyActions(Action[] actions) throws ActionFailedException {
         for (Action a : actions) {
             this.applyAction(a);
@@ -124,44 +72,17 @@ public class Lesson {
     }
 
     public void applyAction(Action action) throws ActionFailedException {
-        switch (action) {
-            case DAY_LATER: {
-                this.laterDay();
-                break;
-            }
-            case TIME_LATER: {
-                this.laterTime();
-                break;
-            }
-            case DAY_EARLIER: {
-                this.earlierDay();
-                break;
-            }
-            case TIME_EARLIER: {
-                this.earlierTime();
-                break;
-            }
+        if (this.timetable == null) {
+            throw new ActionFailedException("Lesson has no timetable attached.");
         }
-    }
-
-    public void applyAction(Action action, int upShift, int downShift) throws ActionFailedException {
-        switch (action) {
-            case DAY_LATER: {
-                this.laterDay();
-                break;
-            }
-            case TIME_LATER: {
-                this.laterTime(downShift);
-                break;
-            }
-            case DAY_EARLIER: {
-                this.earlierDay();
-                break;
-            }
-            case TIME_EARLIER: {
-                this.earlierTime(upShift);
-                break;
-            }
+        TimetableAnswer answer = this.timetable.canPerform(action, this);
+        if (answer.ifAgreed) {
+            Term oldTerm = this.getTerm();
+            Term cand = this.getTerm().applyAction(action, answer.shift);
+            this.setTerm(cand);
+            this.timetable.informAboutLessonChange(oldTerm, this);
+        } else {
+            throw new ActionFailedException("Lesson failed to apply action " + action.name() + ".");
         }
     }
 

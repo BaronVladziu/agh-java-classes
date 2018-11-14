@@ -1,9 +1,12 @@
 package lab5;
 
+import lab2.Action;
 import lab2.Day;
 import lab2.Term;
 import lab3.Lesson;
 import lab4.ITimetable;
+import lab6.ActionFailedException;
+import lab6.TimetableAnswer;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,6 +17,10 @@ public abstract class AbstractTimetable implements ITimetable {
 
     public boolean busy(Term term) {
         return (lessons.containsKey(term.hashCode()));
+    }
+
+    public int getNumberOfLessons() {
+        return this.lessons.size();
     }
 
     public boolean canBeTransferredTo(Term term, boolean full_time) {
@@ -39,6 +46,25 @@ public abstract class AbstractTimetable implements ITimetable {
 
     public Object get(Term term) {
         return lessons.get(term.hashCode());
+    }
+
+    public TimetableAnswer canPerform(Action action, Lesson lesson) {
+        Term cand = lesson.getTerm();
+        try {
+            cand.applyAction(action);
+            if (this.canBeTransferredTo(cand, lesson.isFull_time())) {
+                return new TimetableAnswer(true);
+            }
+        } catch (ActionFailedException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return new TimetableAnswer(false);
+    }
+
+    public void informAboutLessonChange(Term oldTerm, Lesson lesson) {
+        lessons.remove(oldTerm.hashCode());
+        lessons.put(lesson.getTerm().hashCode(), lesson);
     }
 
     public String toString() {
