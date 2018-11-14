@@ -32,28 +32,34 @@ class LessonTest {
         try {
             temp.earlierDay();
         } catch (ActionFailedException ex) {
-            assertEquals("Switching lesson to earlier day failed.", ex.getMessage());
+            assertEquals("Lesson failed to apply action DAY_EARLIER.", ex.getMessage());
         }
         assertTrue(new Lesson(timetable, new Term(9,15, Day.MON),
                         "Programowanie  w języku Ruby","Stanisław Polak",2, true).equals(temp));
         temp = lesson2.clone();
         try {
             temp.earlierDay();
-        } catch (ActionFailedException ex) {}
+        } catch (ActionFailedException ex) {
+            ex.printStackTrace();
+            assertEquals("", ex.getMessage());
+        }
         assertTrue(new Lesson(timetable, new Term(15,30, Day.THU),
                         "Programowanie  w języku Ruby","Stanisław Polak",2, true).equals(temp));
         temp = lesson3.clone();
         try {
             temp.earlierDay();
         } catch (ActionFailedException ex) {
-            assertEquals("Switching lesson to earlier day failed.", ex.getMessage());
+            assertEquals("Lesson failed to apply action DAY_EARLIER.", ex.getMessage());
         }
         assertTrue(new Lesson(timetable, new Term(17,0, Day.FRI),
                         "Programowanie  w języku Ruby","Stanisław Polak",2, false).equals(temp));
         temp = lesson4.clone();
         try {
             temp.earlierDay();
-        } catch (ActionFailedException ex) {}
+        } catch (ActionFailedException ex) {
+            ex.printStackTrace();
+            assertEquals("", ex.getMessage());
+        }
         assertTrue(new Lesson(timetable, new Term(18,25, Day.SAT),
                         "Programowanie  w języku Ruby","Stanisław Polak",2, false).equals(temp));
     }
@@ -69,28 +75,34 @@ class LessonTest {
         Lesson temp = lesson1.clone();
         try {
             temp.laterDay();
-        } catch (ActionFailedException ex) {}
+        } catch (ActionFailedException ex) {
+            ex.printStackTrace();
+            assertEquals("", ex.getMessage());
+        }
         assertTrue(new Lesson(timetable, new Term(9,15, Day.TUE),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, true).equals(temp));
         temp = lesson2.clone();
         try {
             temp.laterDay();
         } catch (ActionFailedException ex) {
-            assertEquals("Switching lesson to later day failed.", ex.getMessage());
+            assertEquals("Lesson failed to apply action DAY_LATER.", ex.getMessage());
         }
         assertTrue(new Lesson(timetable, new Term(15,30, Day.FRI),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, true).equals(temp));
         temp = lesson3.clone();
         try {
             temp.laterDay();
-        } catch (ActionFailedException ex) {}
+        } catch (ActionFailedException ex) {
+            ex.printStackTrace();
+            assertEquals("", ex.getMessage());
+        }
         assertTrue(new Lesson(timetable, new Term(17,0, Day.SAT),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, false).equals(temp));
         temp = lesson4.clone();
         try {
             temp.laterDay();
         } catch (ActionFailedException ex) {
-            assertEquals("Switching lesson to later day failed.", ex.getMessage());
+            assertEquals("Lesson failed to apply action DAY_LATER.", ex.getMessage());
         }
         assertTrue(new Lesson(timetable, new Term(18,25, Day.SUN),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, false).equals(temp));
@@ -108,28 +120,34 @@ class LessonTest {
         try {
             temp.earlierTime();
         } catch (ActionFailedException ex) {
-            assertEquals("Switching lesson to earlier time failed.", ex.getMessage());
+            assertEquals("Lesson failed to apply action TIME_EARLIER.", ex.getMessage());
         }
         assertTrue(new Lesson(timetable, new Term(9,15, Day.MON),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, true).equals(temp));
         temp = lesson2.clone();
         try {
             temp.earlierTime();
-        } catch (ActionFailedException ex) {}
+        } catch (ActionFailedException ex) {
+            ex.printStackTrace();
+            assertEquals("", ex.getMessage());
+        }
         assertTrue(new Lesson(timetable, new Term(14,0, Day.FRI),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, true).equals(temp));
         temp = lesson3.clone();
         try {
             temp.earlierTime();
         } catch (ActionFailedException ex) {
-            assertEquals("Switching lesson to earlier time failed.", ex.getMessage());
+            assertEquals("Lesson failed to apply action TIME_EARLIER.", ex.getMessage());
         }
         assertTrue(new Lesson(timetable, new Term(17,0, Day.FRI),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, false).equals(temp));
         temp = lesson4.clone();
         try {
             temp.earlierTime();
-        } catch (ActionFailedException ex) {}
+        } catch (ActionFailedException ex) {
+            ex.printStackTrace();
+            assertEquals("", ex.getMessage());
+        }
         assertTrue(new Lesson(timetable, new Term(16,55, Day.SUN),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, false).equals(temp));
     }
@@ -145,28 +163,34 @@ class LessonTest {
         Lesson temp = lesson1.clone();
         try {
             temp.laterTime();
-        } catch (ActionFailedException ex) {}
+        } catch (ActionFailedException ex) {
+            ex.printStackTrace();
+            assertEquals("", ex.getMessage());
+        }
         assertTrue(new Lesson(timetable, new Term(10,45, Day.MON),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, true).equals(temp));
         temp = lesson2.clone();
         try {
             temp.laterTime();
         } catch (ActionFailedException ex) {
-            assertEquals("Switching lesson to later time failed.", ex.getMessage());
+            assertEquals("Lesson failed to apply action TIME_LATER.", ex.getMessage());
         }
         assertTrue(new Lesson(timetable, new Term(15,30, Day.FRI),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, true).equals(temp));
         temp = lesson3.clone();
         try {
             temp.laterTime();
-        } catch (ActionFailedException ex) {}
+        } catch (ActionFailedException ex) {
+            ex.printStackTrace();
+            assertEquals("", ex.getMessage());
+        }
         assertTrue(new Lesson(timetable, new Term(18,30, Day.FRI),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, false).equals(temp));
         temp = lesson4.clone();
         try {
             temp.laterTime();
         } catch (ActionFailedException ex) {
-            assertEquals("Switching lesson to later time failed.", ex.getMessage());
+            assertEquals("Lesson failed to apply action TIME_LATER.", ex.getMessage());
         }
         assertTrue(new Lesson(timetable, new Term(18,25, Day.SUN),
                 "Programowanie  w języku Ruby","Stanisław Polak",2, false).equals(temp));

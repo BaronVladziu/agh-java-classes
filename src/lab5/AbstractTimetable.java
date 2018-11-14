@@ -49,9 +49,8 @@ public abstract class AbstractTimetable implements ITimetable {
     }
 
     public TimetableAnswer canPerform(Action action, Lesson lesson) {
-        Term cand = lesson.getTerm();
         try {
-            cand.applyAction(action);
+            Term cand = lesson.getTerm().applyAction(action);
             if (this.canBeTransferredTo(cand, lesson.isFull_time())) {
                 return new TimetableAnswer(true);
             }

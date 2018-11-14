@@ -86,6 +86,22 @@ public class Lesson {
         }
     }
 
+    public void earlierDay() throws ActionFailedException {
+        applyAction(Action.DAY_EARLIER);
+    }
+
+    public void laterDay() throws ActionFailedException {
+        applyAction(Action.DAY_LATER);
+    }
+
+    public void earlierTime() throws ActionFailedException {
+        applyAction(Action.TIME_EARLIER);
+    }
+
+    public void laterTime() throws ActionFailedException {
+        applyAction(Action.TIME_LATER);
+    }
+
     public Term getTerm() {
         return term;
     }
