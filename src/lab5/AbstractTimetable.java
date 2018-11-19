@@ -10,10 +10,11 @@ import lab6.TimetableAnswer;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 public abstract class AbstractTimetable implements ITimetable {
 
-    protected LinkedHashMap<Integer, Lesson> lessons = new LinkedHashMap<>();
+    protected TreeMap<Integer, Lesson> lessons = new TreeMap<>();
 
     public boolean busy(Term term) {
         return (lessons.containsKey(term.hashCode()));

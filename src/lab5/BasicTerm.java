@@ -1,6 +1,6 @@
 package lab5;
 
-public class BasicTerm {
+public class BasicTerm implements Comparable<BasicTerm> {
 
     protected int hour; //godzina rozpoczęcia zajęć
     protected int minute; //minuta rozpoczęcia zajęć
@@ -117,5 +117,14 @@ public class BasicTerm {
     @Override
     public int hashCode() {
         return (60*hour + minute)*1000 + duration;
+    }
+
+    @Override
+    public int compareTo(BasicTerm term) {
+        return this.toInt() - term.toInt();
+    }
+
+    protected int toInt() {
+        return (this.getStartInMinutes())*1000 + this.getDuration();
     }
 }

@@ -6,8 +6,9 @@ import lab4.ITimetable;
 import lab5.AbstractTimetable;
 import lab6.ActionFailedException;
 import lab6.TimetableAnswer;
+import lab7.VisitableTimetableElement;
 
-public class Lesson {
+public class Lesson implements VisitableTimetableElement {
 
     private ITimetable timetable;
     private Term term;

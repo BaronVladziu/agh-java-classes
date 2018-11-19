@@ -33,27 +33,32 @@ public class Term extends BasicTerm {
 
     public Term endTerm(Term termin) {
         BasicTerm resultTerm = super.endTerm(termin);
-        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(),
+                resultTerm.getDuration(), this.day);
     }
 
     public Term endTerm() {
         BasicTerm resultTerm = super.endTerm();
-        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(),
+                resultTerm.getDuration(), this.day);
     }
 
     public Term endTerm(int additionalShiftInMinutes) {
         BasicTerm resultTerm = super.endTerm(additionalShiftInMinutes);
-        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(),
+                resultTerm.getDuration(), this.day);
     }
 
     public Term startTerm() {
         BasicTerm resultTerm = super.startTerm();
-        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(),
+                resultTerm.getDuration(), this.day);
     }
 
     public Term startTerm(int additionalShiftInMinutes) {
         BasicTerm resultTerm = super.startTerm(additionalShiftInMinutes);
-        return new Term(resultTerm.getHour(), resultTerm.getMinute(), resultTerm.getDuration(), this.day);
+        return new Term(resultTerm.getHour(), resultTerm.getMinute(),
+                resultTerm.getDuration(), this.day);
     }
 
     public Term earlierDay() {
@@ -83,7 +88,8 @@ public class Term extends BasicTerm {
                 return this.startTerm(shift);
             }
         }
-        throw new ActionFailedException("Term failed to recognize action " + action.name() + ".");
+        throw new ActionFailedException("Term failed to recognize action " +
+                action.name() + ".");
     }
 
     public Term applyAction(Action action) throws ActionFailedException {
@@ -105,5 +111,13 @@ public class Term extends BasicTerm {
     @Override
     public int hashCode() {
         return super.hashCode()*10 + day.ordinal();
+    }
+
+    public int compareTo(Term term) {
+        return this.toInt() - term.toInt();
+    }
+
+    protected int toInt() {
+        return (this.day.ordinal()*1000000 + super.toInt());
     }
 }

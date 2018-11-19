@@ -6,11 +6,13 @@ import lab2.Term;
 import lab3.Lesson;
 import lab6.ActionFailedException;
 import lab6.TimetableAnswer;
+import lab7.VisitableTimetableElement;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class Timetable2 extends AbstractTimetable {
+public class Timetable2 extends AbstractTimetable implements VisitableTimetableElement {
 
     private static boolean SKIP_BREAKS = true;
 

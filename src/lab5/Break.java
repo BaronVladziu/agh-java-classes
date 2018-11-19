@@ -1,6 +1,8 @@
 package lab5;
 
-public class Break {
+import lab7.VisitableTimetableElement;
+
+public class Break implements VisitableTimetableElement{
 
     private BasicTerm term;
 
